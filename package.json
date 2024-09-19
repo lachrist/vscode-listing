@@ -12,7 +12,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./out/index.js",
+  "main": "./src/index.js",
   "contributes": {
     "commands": [
       {
@@ -82,7 +82,7 @@
     "check-type": "npx tsc",
     "check-format": "npx prettier --check .",
     "check": "npm run check-type && npm run check-format",
-    "pack-bundle": "npx esbuild src/index.js --bundle --outfile=out/index.js --platform=node --format=cjs",
+    "pack-bundle": "node esbuild.mjs",
     "pack-vsix": "npx vsce package",
     "pack": "npm run pack-bundle && npm run pack-vsix"
   },

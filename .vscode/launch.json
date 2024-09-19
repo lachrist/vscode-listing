@@ -6,7 +6,10 @@
       "request": "launch",
       "name": "Run Listing Extension",
       "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}/src/index.js"]
+      "args": [
+        // "--disable-extensions",
+        "--extensionDevelopmentPath=${workspaceFolder}"
+      ]
     }
   ]
 }

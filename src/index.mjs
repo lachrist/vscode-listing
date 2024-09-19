@@ -1,4 +1,4 @@
-import vscode from "./vscode.mjs";
+import vscode from "../ext/vscode.mjs";
 import { toLatexListing } from "html-to-latex-listing";
 import {
   compileMatch,

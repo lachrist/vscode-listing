@@ -12,5 +12,5 @@
     "typeRoots": ["./node_modules/@types"],
     "exactOptionalPropertyTypes": true
   },
-  "include": ["src"]
+  "include": ["src", "ext"]
 }

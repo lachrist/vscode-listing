@@ -1,6 +1,5 @@
-import { dirname } from "node:path";
 import { mkdir, writeFile } from "node:fs/promises";
-import { normalize, sep } from "node:path";
+import { dirname, normalize, sep } from "node:path";
 import { makeRe } from "minimatch";
 
 /**
