@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    // These options only works on .ts files not .d.ts files
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
     "declaration": false,
     "allowJs": true,
     "checkJs": true,
@@ -15,6 +12,5 @@
     "typeRoots": ["./node_modules/@types"],
     "exactOptionalPropertyTypes": true
   },
-  "include": ["./lib/", "./lint/", "./test/"],
-  "exclude": ["./test/262/codebase/", "./test/262/test262/"]
+  "include": ["./lib/"]
 }

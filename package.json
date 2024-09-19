@@ -1,6 +1,8 @@
 {
-  "name": "vscode-listing",
-  "description": "Facilitate listing",
+  "name": "listing",
+  "icon": "seagull.png",
+  "displayName": "Listing",
+  "description": "Extract listing from VSCode in HTML and LaTex format.",
   "version": "0.0.0",
   "publisher": "lachrist",
   "repository": "https://github.com/lachrist/vscode-listing",
@@ -10,7 +12,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./extension.js",
+  "main": "./lib/index.js",
   "contributes": {
     "commands": [
       {
@@ -76,11 +78,18 @@
       }
     }
   },
-  "scripts": {},
+  "scripts": {
+    "check-type": "npx tsc",
+    "check-format": "npx prettier --check .",
+    "check": "npm run check-type && npm run check-format",
+    "pack": "npx vsce package"
+  },
   "devDependencies": {
     "@types/node": "^22.5.5",
     "@types/vscode": "^1.73.0",
-    "prettier": "^3.3.3"
+    "@vscode/vsce": "^3.1.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.2"
   },
   "dependencies": {
     "html-to-latex-listing": "^0.3.2",
