@@ -12,7 +12,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "main": "./lib/index.js",
+  "main": "./out/index.js",
   "contributes": {
     "commands": [
       {
@@ -33,7 +33,7 @@
       "title": "Listing Extension Settings",
       "properties": {
         "listing.switch-theme": {
-          "descriptrion": "Switch to another theme for the listing.",
+          "description": "Generate listings in another theme.",
           "type": "boolean",
           "default": true
         },
@@ -82,12 +82,15 @@
     "check-type": "npx tsc",
     "check-format": "npx prettier --check .",
     "check": "npm run check-type && npm run check-format",
-    "pack": "npx vsce package"
+    "pack-bundle": "npx esbuild src/index.js --bundle --outfile=out/index.js --platform=node --format=cjs",
+    "pack-vsix": "npx vsce package",
+    "pack": "npm run pack-bundle && npm run pack-vsix"
   },
   "devDependencies": {
     "@types/node": "^22.5.5",
     "@types/vscode": "^1.73.0",
     "@vscode/vsce": "^3.1.0",
+    "esbuild": "^0.23.1",
     "prettier": "^3.3.3",
     "typescript": "^5.6.2"
   },

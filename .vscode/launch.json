@@ -2,11 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run Extension",
       "type": "extensionHost",
       "request": "launch",
+      "name": "Run Listing Extension",
       "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}"]
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/src/index.js"]
     }
   ]
 }
