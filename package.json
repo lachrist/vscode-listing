@@ -1,0 +1,77 @@
+{
+  "name": "latex-listing",
+  "description": "Facilitate listing",
+  "version": "0.0.1",
+  "publisher": "lachrist",
+  "repository": "https://github.com/lachrist/vscode-latex-listing",
+  "engines": {
+    "vscode": "^1.93.1"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "listing.copyAsLatex",
+        "title": "Listing: Copy as Latex Listing"
+      },
+      {
+        "command": "listing.copyAsHtml",
+        "title": "Listing: Copy as HTML Listing"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Listing Extension Settings",
+      "properties": {
+        "listing.source-directory": {
+          "description": "The source directory for listings.",
+          "type": "string",
+          "default": [
+            "listing/src/"
+          ]
+        },
+        "listing.enable-html": {
+          "description": "Generate HTML listing on save.",
+          "type": "boolean",
+          "default": true
+        },
+        "listing.html-output-directory": {
+          "description": "The directory where HTML listings should be saved.",
+          "type": "string",
+          "default": "listing/html/"
+        },
+        "listing.enable-latex": {
+          "description": "Generate LaTex listing on save.",
+          "type": "boolean",
+          "default": true
+        },
+        "listing.latex-output-directory": {
+          "description": "The directory where LaTex listings should be saved.",
+          "type": "string",
+          "default": "listing/latex/"
+        },
+        "listing.ignore": {
+          "description": "A list of glob patterns to ignore from the source directory.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      }
+    }
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "^22.5.5",
+    "@types/vscode": "^1.73.0",
+    "prettier": "^3.3.3"
+  },
+  "dependencies": {
+    "html-to-latex-listing": "^0.3.2",
+    "minimatch": "^10.0.1"
+  }
+}
