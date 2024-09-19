@@ -29,9 +29,7 @@
         "listing.source-directory": {
           "description": "The source directory for listings.",
           "type": "string",
-          "default": [
-            "listing/src/"
-          ]
+          "default": "listing/src/"
         },
         "listing.enable-html": {
           "description": "Generate HTML listing on save.",
@@ -53,7 +51,7 @@
           "type": "string",
           "default": "listing/latex/"
         },
-        "listing.ignore": {
+        "listing.ignore-pattern-list": {
           "description": "A list of glob patterns to ignore from the source directory.",
           "type": "array",
           "items": {
