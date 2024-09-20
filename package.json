@@ -82,9 +82,8 @@
     "check-type": "npx tsc",
     "check-format": "npx prettier --check .",
     "check": "npm run check-type && npm run check-format",
-    "pack-bundle": "node bundle.mjs",
-    "pack-vsix": "npx vsce package",
-    "pack": "npm run pack-bundle && npm run pack-vsix"
+    "pack": "node bundle.mjs && node flip.mjs prod && npx vsce package && node.flip.mjs test",
+    "publish": "node bundle.mjs && node flip.mjs prod && npx vsce publish && node.flip.mjs test"
   },
   "files": [
     "out/index.js",
