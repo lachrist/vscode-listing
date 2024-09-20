@@ -6,6 +6,7 @@ import {
   normalizeDirectoryPath,
   normalizeFilePath,
   save,
+  stripExtension,
   wait,
 } from "./util.mjs";
 
@@ -46,13 +47,10 @@ export const activate = (context) => {
   if (config["save-html"] || config["save-latex"]) {
     const options = {
       theme,
-      source: normalizeDirectoryPath(config["source-directory"]),
-      html_output: config["save-html"]
-        ? normalizeDirectoryPath(config["html-output-directory"])
-        : null,
-      latex_output: config["save-latex"]
-        ? normalizeDirectoryPath(config["latex-output-directory"])
-        : null,
+      source_directory: normalizeDirectoryPath(config["source-directory"]),
+      output_directory: normalizeDirectoryPath(config["output-directory"]),
+      save_html: config["save-html"],
+      save_latex: config["save-latex"],
       ignore: compileMatch(config["ignore-pattern-list"]),
     };
     context.subscriptions.push(
@@ -126,26 +124,27 @@ const copyAsHtml = async (theme) => {
  *   document: import("vscode").TextDocument,
  *   options: {
  *     theme: string | null,
- *     source: string,
+ *     source_directory: string,
+ *     output_directory: string,
  *     ignore: (path: string) => boolean,
- *     html_output: string | null,
- *     latex_output: string | null,
+ *     save_html: boolean,
+ *     save_latex: boolean,
  *   },
  * ) => Promise<string[]>}
  */
 const generateListing = async (
   document,
-  { theme, source, html_output, latex_output, ignore },
+  { theme, source_directory, output_directory, save_html, save_latex, ignore },
 ) => {
   const pair = toWorkspaceRelativePath(normalizeFilePath(document.fileName));
   if (pair === null) {
     return [];
   }
   const { root, path: from_root_path } = pair;
-  if (!from_root_path.startsWith(source)) {
+  if (!from_root_path.startsWith(source_directory)) {
     return [];
   }
-  const from_source_path = from_root_path.slice(source.length);
+  const from_source_path = from_root_path.slice(source_directory.length);
   if (ignore(from_source_path)) {
     return [];
   }
@@ -161,13 +160,13 @@ const generateListing = async (
   const html = await getThemeSyntaxHighlight(document, theme);
   /** @type {string[]} */
   const paths = [];
-  if (html_output != null) {
-    const path = `${root}${html_output}${from_source_path}.html`;
+  if (save_html) {
+    const path = `${root}${output_directory}${stripExtension(from_source_path)}.html`;
     paths.push(path);
     await save(path, html);
   }
-  if (latex_output != null) {
-    const path = `${root}${latex_output}${from_source_path}.tex`;
+  if (save_latex) {
+    const path = `${root}${output_directory}${stripExtension(from_source_path)}.tex`;
     paths.push(path);
     await save(path, toLatexListing(html));
   }

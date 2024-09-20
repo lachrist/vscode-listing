@@ -3,7 +3,7 @@
   "icon": "seagull.png",
   "displayName": "Listing",
   "description": "Extract listing from VSCode in HTML and LaTex format.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "publisher": "lachrist",
   "repository": "https://github.com/lachrist/vscode-listing",
   "engines": {
@@ -33,17 +33,17 @@
       "title": "Listing Extension Settings",
       "properties": {
         "listing.switch-theme": {
-          "description": "Generate listings in another theme.",
+          "description": "Temporarily switch color theme while generating listings",
           "type": "boolean",
           "default": true
         },
         "listing.theme": {
-          "description": "The theme of the listing when `listing.switch-theme` is enabled.",
+          "description": "The theme of listings when `listing.switch-theme` is enabled.",
           "type": "string",
           "default": "Quiet Light"
         },
         "listing.source-directory": {
-          "description": "The source directory for listings.",
+          "description": "The source directory where raw listings are located.",
           "type": "string",
           "default": "listing/src/"
         },
@@ -55,25 +55,20 @@
           },
           "default": []
         },
+        "listing.output-directory": {
+          "description": "The output directory where listings should be saved.",
+          "type": "string",
+          "default": "listing/out/"
+        },
         "listing.save-html": {
           "description": "Generate HTML listing on save.",
           "type": "boolean",
           "default": true
         },
-        "listing.html-output-directory": {
-          "description": "The directory where HTML listings should be saved when `listing.save-html` is enabled.",
-          "type": "string",
-          "default": "listing/html/"
-        },
         "listing.save-latex": {
           "description": "Generate LaTex listing on save.",
           "type": "boolean",
           "default": true
-        },
-        "listing.latex-output-directory": {
-          "description": "The directory where LaTex listings should be saved when `listing.save-latex` is enabled.",
-          "type": "string",
-          "default": "listing/latex/"
         }
       }
     }
@@ -82,8 +77,8 @@
     "check-type": "npx tsc",
     "check-format": "npx prettier --check .",
     "check": "npm run check-type && npm run check-format",
-    "pack": "node bundle.mjs && node flip.mjs prod && npx vsce package && node.flip.mjs test",
-    "publish": "node bundle.mjs && node flip.mjs prod && npx vsce publish && node.flip.mjs test"
+    "pack": "node bundle.mjs && node flip.mjs prod && npx vsce package && node flip.mjs test",
+    "publish": "node bundle.mjs && node flip.mjs prod && npx vsce publish && node flip.mjs test"
   },
   "files": [
     "out/index.js",

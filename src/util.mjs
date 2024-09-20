@@ -7,6 +7,22 @@ import { makeRe } from "minimatch";
  *   path: string,
  * ) => string}
  */
+export const stripExtension = (path) => {
+  const segments = path.split("/");
+  const parts = /** @type {string} */ (segments.pop()).split(".");
+  if (parts.length === 1) {
+    return path;
+  } else {
+    parts.pop();
+    return [...segments, parts.join(".")].join("/");
+  }
+};
+
+/**
+ * @type {(
+ *   path: string,
+ * ) => string}
+ */
 export const normalizeDirectoryPath = (path1) => {
   const path2 = normalize(path1).split(sep).join("/");
   return path2.endsWith("/") ? path2 : `${path2}/`;
