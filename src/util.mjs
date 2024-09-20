@@ -13,8 +13,7 @@ export const stripExtension = (path) => {
   if (parts.length === 1) {
     return path;
   } else {
-    parts.pop();
-    return [...segments, parts.join(".")].join("/");
+    return [...segments, parts[0]].join("/");
   }
 };
 
