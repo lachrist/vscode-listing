@@ -258,7 +258,7 @@ const getSyntaxHighlight = async (document) => {
   });
   await vscode.window.showTextDocument(temporary);
   await vscode.commands.executeCommand("editor.action.pasteAs", {
-    id: "html",
+    kind: "html",
   });
   await new Promise((resolve, reject) => {
     const disposable = vscode.workspace.onDidChangeTextDocument((event) => {

@@ -3,11 +3,11 @@
   "icon": "seagull.png",
   "displayName": "Listing",
   "description": "Extract listing from VSCode in HTML and LaTex format.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "lachrist",
   "repository": "https://github.com/lachrist/vscode-listing",
   "engines": {
-    "vscode": "^1.93.1"
+    "vscode": "^1.98.0"
   },
   "activationEvents": [
     "onStartupFinished"
