@@ -3,7 +3,7 @@
   "icon": "seagull.png",
   "displayName": "Listing",
   "description": "Extract listing from VSCode in HTML and LaTex format.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "lachrist",
   "repository": "https://github.com/lachrist/vscode-listing",
   "engines": {
@@ -78,6 +78,7 @@
     "check-format": "npx prettier --check .",
     "check": "npm run check-type && npm run check-format",
     "pack": "node bundle.mjs && node flip.mjs prod && npx vsce package && node flip.mjs test",
+    "token": "echo https://dev.azure.com/lachrist/ && npx vsce login lachrist",
     "publish": "node bundle.mjs && node flip.mjs prod && npx vsce publish && node flip.mjs test"
   },
   "files": [

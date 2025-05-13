@@ -9,6 +9,52 @@ import {
   stripExtension,
   wait,
 } from "./util.mjs";
+import { spawn } from "node:child_process";
+import { Buffer } from "node:buffer";
+
+/**
+ * @type {(data: string) => string}
+ */
+const parseOSAFormat = (data) => {
+  data = data.trim();
+  if (data.at(0) !== "«") {
+    throw new Error("Invalid HTML prefix", { cause: data });
+  }
+  if (data.at(-1) !== "»") {
+    throw new Error("Invalid HTML suffix", { cause: data });
+  }
+  data = data.slice(1, -1);
+  data = data.trim();
+  if (!data.startsWith("data HTML")) {
+    throw new Error("Invalid HTML prefix", { cause: data });
+  }
+  data = data.slice("data HTML".length).trim();
+  const buffer = Buffer.from(data, "hex");
+  console.log({ wesh: buffer.toString("utf8") });
+  return buffer.toString("utf8");
+};
+
+const getClipboardHTML = async () => {
+  const output = await new Promise((resolve, reject) => {
+    const child = spawn("osascript", ["-e", 'the clipboard as "HTML"'], {
+      stdio: "pipe",
+    });
+    child.on("error", reject);
+    /** @type {string[]} */
+    const output = [];
+    child.stdout.on("data", (data) => {
+      output.push(data.toString("utf8"));
+    });
+    child.on("exit", (status, signal) => {
+      if (status !== 0 || signal != null) {
+        reject(new Error(`osascript failure`, { cause: { status, signal } }));
+      } else {
+        resolve(output.join(""));
+      }
+    });
+  });
+  return parseOSAFormat(output);
+};
 
 /**
  * @type {(
@@ -201,6 +247,9 @@ const switchTheme = async (theme) => {
       .getConfiguration()
       .update("workbench.colorTheme", theme, vscode.ConfigurationTarget.Global);
   });
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000); // Await syntax highlighting
+  });
   return old_theme;
 };
 
@@ -252,31 +301,7 @@ const getSyntaxHighlight = async (document) => {
   ) {
     throw new Error("Could not copy listing to clipboard.");
   }
-  const temporary = await vscode.workspace.openTextDocument({
-    content: "",
-    language: "html",
-  });
-  await vscode.window.showTextDocument(temporary);
-  await vscode.commands.executeCommand("editor.action.pasteAs", {
-    kind: "html",
-  });
-  await new Promise((resolve, reject) => {
-    const disposable = vscode.workspace.onDidChangeTextDocument((event) => {
-      disposable.dispose();
-      if (event.document !== temporary) {
-        reject(
-          new Error("Could not paste HTML listing in temporary document."),
-        );
-      } else {
-        resolve(undefined);
-      }
-    });
-  });
-  const content = temporary.getText();
-  await vscode.commands.executeCommand(
-    "workbench.action.revertAndCloseActiveEditor",
-  );
-  return content;
+  return await getClipboardHTML();
 };
 
 /**

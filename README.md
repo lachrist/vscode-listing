@@ -1,8 +1,9 @@
 # vscode-listing
 
 VSCode extension for generating LaTex and HTML listings using the syntax
-highlighting of your favorite editor. Save your raw listings in `listing/src`
-and watch `listing/out` for generated listings.
+highlighting of your favorite editor. Currently, only macOS is supported. Save
+your raw listings in `listing/src` and watch `listing/out` for generated
+listings.
 
 ![Demo GIF](https://github.com/lachrist/vscode-listing/blob/main/demo.gif?raw=true)
 
